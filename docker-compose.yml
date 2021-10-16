@@ -101,3 +101,15 @@ services:
     healthcheck:
       test: [ "CMD", "nc", "-z", "localhost", "3000" ]
       start_period: 30s
+
+  movies-api:
+    image: ivanfranchin/movies-api:1.0.0
+    container_name: movies-api
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - MYSQL_HOST=mysql
+    #      - SPRING_PROFILES_ACTIVE=non-json-logs
+    depends_on:
+      - mysql

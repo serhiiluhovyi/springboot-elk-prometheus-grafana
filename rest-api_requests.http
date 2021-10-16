@@ -1,0 +1,38 @@
+GET http://localhost:8080/api/movies
+Accept: application/json
+
+###
+
+POST http://localhost:8080/api/movies
+Accept: application/json
+Content-Type: application/json
+
+{
+  "imdb": "tt5580036",
+  "title": "Movie 1",
+  "year": 2017,
+  "genre": "Biography",
+  "country": "USA"
+}
+
+###
+
+GET http://localhost:8080/api/movies/tt5580036
+Accept: application/json
+
+###
+
+GET http://localhost:8080/api/movies/111
+Accept: application/json
+
+###
+
+DELETE http://localhost:8080/api/movies/tt5580036
+Accept: application/json
+
+###
+
+DELETE http://localhost:8080/api/movies/123
+Accept: application/json
+
+###

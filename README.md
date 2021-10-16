@@ -2,8 +2,6 @@
 
 The goal of this project is to implement a [`Spring Boot`](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) application, called `movies-api`, and use [`Filebeat`](https://www.elastic.co/beats/filebeat) & `ELK Stack` ([`Elasticsearch`](https://www.elastic.co/elasticsearch), [`Logstash`](https://www.elastic.co/logstash) and [`Kibana`](https://www.elastic.co/kibana)) to collect and visualize application's **logs** and [`Prometheus`](https://prometheus.io/) & [`Grafana`](https://grafana.com/) to monitor application's **metrics**.
 
-> **Note:** In [`kubernetes-minikube-environment`](https://github.com/ivangfr/kubernetes-minikube-environment/tree/master/movies-api-elk-prometheus-grafana) repository, it's shown how to deploy this project in `Kubernetes` (`Minikube`)
-
 ## Application
 
 - ### movies-api
@@ -18,6 +16,14 @@ The goal of this project is to implement a [`Spring Boot`](https://docs.spring.i
 - [`Docker`](https://www.docker.com/)
 - [`Docker-Compose`](https://docs.docker.com/compose/install/)
 
+## Build Docker image for movies-api
+
+- In a terminal, make sure you are inside `springboot-elk-prometheus-grafana` root folder
+  - Run the following script to build the image
+  ```
+  ./docker-build.sh
+  ```
+
 ## Start Environment
 
 - Open a terminal and inside `springboot-elk-prometheus-grafana` root folder run
@@ -29,51 +35,6 @@ The goal of this project is to implement a [`Spring Boot`](https://docs.spring.i
   ```
   docker-compose ps
   ```
-
-## Running application with Maven
-
-- Open a terminal and make sure you are inside `springboot-elk-prometheus-grafana` folder
-
-- Run the following command
-  ```
-  ./mvnw clean spring-boot:run --projects movies-api
-  ```
-  > **Note:** If you want to change to "non-json-logs" (maybe during development it's useful), run
-  > ```
-  > ./mvnw clean spring-boot:run --projects movies-api -Dspring-boot.run.jvmArguments="-Dspring.profiles.active=non-json-logs"
-  > ```
-
-## Running application as Docker container
-
-- ### Build Docker image
-
-  - In a terminal, make sure you are inside `springboot-elk-prometheus-grafana` root folder
-  - Run the following script to build the image
-    - JVM
-      ```
-      ./docker-build.sh
-      ```
-    - Native (it's not implemented yet)
-      ```
-      ./docker-build.sh native
-      ```
-
-- ### Environment variables
-
-  | Environment Variable | Description                                                       |
-  | -------------------- | ----------------------------------------------------------------- |
-  | `MYSQL_HOST`         | Specify host of the `MySQL` database to use (default `localhost`) |
-  | `MYSQL_PORT`         | Specify port of the `MySQL` database to use (default `3306`)      |
-
-- ### Start Docker container
-
-  - In a terminal, run the following command to start the Docker container
-    ```
-    docker run --rm --name movies-api -p 8080:8080 -e MYSQL_HOST=mysql \
-      --network=springboot-elk-prometheus-grafana_default \
-      ivanfranchin/movies-api:1.0.0
-    ```
-    > **Note:** If you want to change to "non-json-logs", add `-e SPRING_PROFILES_ACTIVE=non-json-logs` to the command above
 
 ## Application & Services URLs
 
@@ -105,7 +66,6 @@ The goal of this project is to implement a [`Spring Boot`](https://docs.spring.i
   _Configuration_
 
   - Access `Kibana` website
-  - Click `Explore on my own`
   - In the main page, click the _"burger"_ menu icon and, then click `Discover`
   - Click `Create index pattern` button
   - In the `Index pattern name` field, set `filebeat-*` and click `> Next Step` button
@@ -135,24 +95,8 @@ The goal of this project is to implement a [`Spring Boot`](https://docs.spring.i
 
 ## Shutdown
 
-- To stop application
-  - If it was started with Maven, go to the terminals where it is running and press `Ctrl+C`
-  - If it was started as a Docker container, go to a terminal and run the command below
-    ```
-    docker stop movies-api
-    ```
 - To stop and remove `docker-compose` containers, network and volumes, go to a terminal and, inside `springboot-elk-prometheus-grafana` root folder, run the following command
   ```
   docker-compose down -v
   ```
-
-## Cleanup
-
-To remove the Docker images created by this project, go to a terminal and, inside `springboot-elk-prometheus-grafana` root folder, run the script below
-```
-./remove-docker-images.sh
-```
-
-## References
-
-https://medium.com/@sece.cosmin/docker-logs-with-elastic-stack-elk-filebeat-50e2b20a27c6
+  

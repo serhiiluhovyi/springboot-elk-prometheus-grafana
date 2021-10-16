@@ -27,6 +27,11 @@ Accept: application/json
 
 ###
 
+GET http://localhost:8080/api/movies/123
+Accept: application/json
+
+###
+
 DELETE http://localhost:8080/api/movies/tt5580036
 Accept: application/json
 

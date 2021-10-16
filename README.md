@@ -66,6 +66,7 @@ The goal of this project is to implement a [`Spring Boot`](https://docs.spring.i
   _Configuration_
 
   - Access `Kibana` website
+  - Click `Explore on my own`
   - In the main page, click the _"burger"_ menu icon and, then click `Discover`
   - Click `Create index pattern` button
   - In the `Index pattern name` field, set `filebeat-*` and click `> Next Step` button
